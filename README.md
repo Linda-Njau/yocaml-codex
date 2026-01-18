@@ -17,6 +17,12 @@ providing these directly in YOCaml (as an extended version of
 possible and to create a dedicated library that would provide all
 these reusable tools.
 
+### Philosophy
+
+The main philosophy of the library is to be flexible, rich in data but
+lax about how data is validated from sources (to allow for compact
+representations).
+
 ## Library organisation
 
 The library is called `yocaml-codex`, and all of its internal
