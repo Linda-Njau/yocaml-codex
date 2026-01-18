@@ -5,3 +5,7 @@
  (libraries uri emile yocaml))
 
 (include_subdirs qualified)
+
+(mdx
+ (files *.mli)
+ (libraries yocaml yocaml-codex.atoms))
