@@ -34,3 +34,9 @@ let to_option = function
   | `Given x -> Some x
   | `None | `Derived -> None
 ;;
+
+let map f = function
+  | `Given x -> `Given (f x)
+  | `None -> `None
+  | `Derived -> `Derived
+;;

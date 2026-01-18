@@ -34,4 +34,5 @@ val optional
   -> [> `Derived | `Given of 'a | `None ]
        Yocaml.Data.Validation.validated_record
 
+val map : ('a -> 'b) -> 'a opt -> 'b opt
 val to_option : 'a opt -> 'a option

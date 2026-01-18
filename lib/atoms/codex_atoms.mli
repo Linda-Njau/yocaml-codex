@@ -10,6 +10,7 @@ module Map = Map
 
 module Url = Url
 module Link = Link
+module Email = Email
 
 (** {1 Misc} *)
 

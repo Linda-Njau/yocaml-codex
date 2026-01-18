@@ -30,6 +30,7 @@
    yocaml_syndication
 
    uri
+   emile
 
   ;; test setup
   (ppx_expect :with-test)
