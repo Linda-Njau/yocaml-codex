@@ -30,6 +30,16 @@ let optional fields name handler =
   optional_or ~default:derived fields name (a / b)
 ;;
 
+let opt ?alt fields name handler =
+  let open Yocaml.Data.Validation in
+  let a = string & String.equal "<none>" & const none
+  and b = handler $ given in
+  let f = opt ?alt fields name (a / b) in
+  Result.bind f (function
+    | Some x -> Ok x
+    | None -> Ok derived)
+;;
+
 let to_option = function
   | `Given x -> Some x
   | `None | `Derived -> None

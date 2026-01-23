@@ -8,6 +8,7 @@
 
     All elements serving as bases (such as minimal representations). *)
 
+module Gender = Gender
 module Individual = Individual
 
 (** {1 Technical}

@@ -34,5 +34,14 @@ val optional
   -> [> `Derived | `Given of 'a | `None ]
        Yocaml.Data.Validation.validated_record
 
+(** Read a derivable fields as an optional field using opt shortcut.*)
+val opt
+  :  ?alt:string list
+  -> (string * Yocaml.Data.t) list
+  -> string
+  -> 'a Yocaml.Data.validable
+  -> [> `Derived | `Given of 'a | `None ]
+       Yocaml.Data.Validation.validated_record
+
 val map : ('a -> 'b) -> 'a opt -> 'b opt
 val to_option : 'a opt -> 'a option
