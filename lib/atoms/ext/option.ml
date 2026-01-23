@@ -6,16 +6,16 @@ let to_bool = function
   | None -> false
 ;;
 
+let zip a b =
+  match a, b with
+  | Some a, Some b -> Some (a, b)
+  | _ -> None
+;;
+
 module Syntax = struct
   let ( let+ ) x f = Stdlib.Option.map f x
   let ( let* ) x f = Stdlib.Option.bind x f
-
-  let ( and+ ) a b =
-    match a, b with
-    | Some a, Some b -> Some (a, b)
-    | _ -> None
-  ;;
-
+  let ( and+ ) = zip
   let ( and* ) = ( and+ )
 end
 

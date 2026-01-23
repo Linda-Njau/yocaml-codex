@@ -6,3 +6,8 @@
 type t
 
 (** {1 Building Individuals} *)
+
+(** {1 Yocaml Related} *)
+
+include Yocaml.Data.S with type t := t
+include Yocaml.Data.Validation.S with type t := t
