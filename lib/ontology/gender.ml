@@ -34,12 +34,14 @@ let with_nouns n = function
 let to_data gender =
   let pronouns = pronouns gender in
   let name = to_string gender in
+  let has_pronouns = not (List.is_empty pronouns) in
   let open Yocaml.Data in
   record
     [ "name", string name
+    ; "has_pronouns", bool has_pronouns
     ; ( "pronouns"
       , record
-          [ "has", bool @@ not (List.is_empty pronouns)
+          [ "has", bool has_pronouns
           ; "all", list_of string pronouns
           ; "repr", string @@ String.concat "/" pronouns
           ] )

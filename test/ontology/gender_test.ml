@@ -7,7 +7,7 @@ let%expect_test "Dump a gender - 1" =
   |> dump_validation Gender.to_data;
   [%expect
     {|
-    [V]	{"name": "male", "pronouns":
+    [V]	{"name": "male", "has_pronouns": true, "pronouns":
          {"has": true, "all": ["he", "him", "his"], "repr": "he/him/his"}}
     |}]
 ;;
@@ -18,7 +18,7 @@ let%expect_test "Dump a gender - 2" =
   |> dump_validation Gender.to_data;
   [%expect
     {|
-    [V]	{"name": "female", "pronouns":
+    [V]	{"name": "female", "has_pronouns": true, "pronouns":
          {"has": true, "all": ["she", "her", "hers"], "repr": "she/her/hers"}}
     |}]
 ;;
@@ -28,7 +28,10 @@ let%expect_test "Dump a gender - 4" =
   |> Gender.from_data
   |> dump_validation Gender.to_data;
   [%expect
-    {| [V]	{"name": "neutral", "pronouns": {"has": false, "all": [], "repr": ""}} |}]
+    {|
+    [V]	{"name": "neutral", "has_pronouns": false, "pronouns":
+         {"has": false, "all": [], "repr": ""}}
+    |}]
 ;;
 
 let%expect_test "Dump a gender - 5" =
@@ -36,7 +39,10 @@ let%expect_test "Dump a gender - 5" =
   |> Gender.from_data
   |> dump_validation Gender.to_data;
   [%expect
-    {| [V]	{"name": "female", "pronouns": {"has": false, "all": [], "repr": ""}} |}]
+    {|
+    [V]	{"name": "female", "has_pronouns": false, "pronouns":
+         {"has": false, "all": [], "repr": ""}}
+    |}]
 ;;
 
 let%expect_test "Dump a gender - 6" =
@@ -44,7 +50,10 @@ let%expect_test "Dump a gender - 6" =
   |> Gender.from_data
   |> dump_validation Gender.to_data;
   [%expect
-    {| [V]	{"name": "female", "pronouns": {"has": false, "all": [], "repr": ""}} |}]
+    {|
+    [V]	{"name": "female", "has_pronouns": false, "pronouns":
+         {"has": false, "all": [], "repr": ""}}
+    |}]
 ;;
 
 let%expect_test "Dump a gender - 7" =
@@ -57,7 +66,7 @@ let%expect_test "Dump a gender - 7" =
   |> dump_validation Gender.to_data;
   [%expect
     {|
-    [V]	{"name": "female", "pronouns":
+    [V]	{"name": "female", "has_pronouns": true, "pronouns":
          {"has": true, "all": ["they", "xxx"], "repr": "they/xxx"}}
     |}]
 ;;
@@ -69,7 +78,7 @@ let%expect_test "Dump a gender - 8" =
   |> dump_validation Gender.to_data;
   [%expect
     {|
-    [V]	{"name": "female", "pronouns":
+    [V]	{"name": "female", "has_pronouns": true, "pronouns":
          {"has": true, "all": ["a", "b", "ccc", "ddd"], "repr": "a/b/ccc/ddd"}}
     |}]
 ;;
