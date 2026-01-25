@@ -40,8 +40,8 @@ let%expect_test "Dump a gender - 5" =
   |> dump_validation Gender.to_data;
   [%expect
     {|
-    [V]	{"name": "female", "has_pronouns": false, "pronouns":
-         {"has": false, "all": [], "repr": ""}}
+    [V]	{"name": "female", "has_pronouns": true, "pronouns":
+         {"has": true, "all": ["she", "her", "hers"], "repr": "she/her/hers"}}
     |}]
 ;;
 

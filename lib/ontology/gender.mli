@@ -60,6 +60,20 @@ type t
       {"name": "male", "has_pronouns": true, "pronouns":
        {"has": true, "all": ["he", "him", "his"], "repr": "he/him/his"}}
       - : unit = ()
+    ]}
+
+    {@ocaml[
+      # Yocaml.Data.(string "female") |> validate
+      {"name": "female", "has_pronouns": true, "pronouns":
+       {"has": true, "all": ["she", "her", "hers"], "repr": "she/her/hers"}}
+      - : unit = ()
+    ]}
+
+    {@ocaml[
+      # Yocaml.Data.(string "neutral") |> validate
+      {"name": "neutral", "has_pronouns": false, "pronouns":
+       {"has": false, "all": [], "repr": ""}}
+      - : unit = ()
     ]} *)
 
 (** {1 Building Genders} *)

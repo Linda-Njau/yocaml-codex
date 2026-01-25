@@ -69,7 +69,11 @@ let from_record =
         ~alt:[ "nouns" ]
         ((string $ Stdlib.String.split_on_char '/') / list_of string $ nouns_of)
     in
-    let pronouns = nouns |> Derivable.to_option |> Option.value ~default:[] in
+    let pronouns =
+      nouns
+      |> Derivable.resolve_opt (fun () -> Some (pronouns gender))
+      |> Option.value ~default:[]
+    in
     with_nouns pronouns gender)
 ;;
 
