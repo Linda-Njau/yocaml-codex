@@ -74,6 +74,52 @@ type t
       {"name": "neutral", "has_pronouns": false, "pronouns":
        {"has": false, "all": [], "repr": ""}}
       - : unit = ()
+    ]}
+
+    {3 Expanded approach}
+
+    You can use a record, to fill every mandatory fields:
+
+    {@ocaml[
+      # Yocaml.Data.(record [
+           "name", string "male"
+        ]) |> validate ;;
+      {"name": "male", "has_pronouns": true, "pronouns":
+       {"has": true, "all": ["he", "him", "his"], "repr": "he/him/his"}}
+      - : unit = ()
+    ]}
+
+    {@ocaml[
+      # Yocaml.Data.(record [
+           "name", string "female"
+        ]) |> validate ;;
+      {"name": "female", "has_pronouns": true, "pronouns":
+       {"has": true, "all": ["she", "her", "hers"], "repr": "she/her/hers"}}
+      - : unit = ()
+    ]}
+
+    You can also overwrite default pronouns:
+
+    {@ocaml[
+      # Yocaml.Data.(record [
+           "name", string "male"
+        ;  "pronouns", list_of string ["a"; "b"; "c"]
+        ]) |> validate ;;
+      {"name": "male", "has_pronouns": true, "pronouns":
+       {"has": true, "all": ["a", "b", "c"], "repr": "a/b/c"}}
+      - : unit = ()
+    ]}
+
+    Or just remove default pronouns:
+
+    {@ocaml[
+      # Yocaml.Data.(record [
+           "name", string "female"
+        ;  "pronouns", string "<none>"
+        ]) |> validate ;;
+      {"name": "female", "has_pronouns": false, "pronouns":
+       {"has": false, "all": [], "repr": ""}}
+      - : unit = ()
     ]} *)
 
 (** {1 Building Genders} *)
