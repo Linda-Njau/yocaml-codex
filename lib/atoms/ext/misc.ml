@@ -46,3 +46,23 @@ let add_scheme ?(scheme = "https") s =
   | _ :: ([ xs ] | xs :: _) when Stdlib.String.starts_with ~prefix:"//" xs -> s
   | _ -> scheme ^ "://" ^ s
 ;;
+
+let merge_record_fields ?key fields = function
+  | Yocaml.Data.Record xs ->
+    (match key with
+     | None -> fields @ xs
+     | Some key -> (key, Yocaml.Data.record xs) :: fields)
+  | other ->
+    let key =
+      match key, other with
+      | Some k, _ -> k
+      | None, Yocaml.Data.Null -> "null"
+      | None, Yocaml.Data.Bool _ -> "bool"
+      | None, Yocaml.Data.Int _ -> "int"
+      | None, Yocaml.Data.Float _ -> "float"
+      | None, Yocaml.Data.String _ -> "string"
+      | None, Yocaml.Data.List _ -> "list"
+      | None, Yocaml.Data.Record _ -> "record"
+    in
+    (key, other) :: fields
+;;

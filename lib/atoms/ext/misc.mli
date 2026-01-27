@@ -16,3 +16,11 @@ val add_scheme : ?scheme:string -> string -> string
 
 (** [ltrim_path xs] remove leading empty sectin in [xs]. *)
 val ltrim_path : string list -> string list
+
+(** [merge_record_fields ?key fields data] recompute a list of fields
+    merged with the given [data]. *)
+val merge_record_fields
+  :  ?key:string
+  -> (string * Yocaml.Data.t) list
+  -> Yocaml.Data.t
+  -> (string * Yocaml.Data.t) list
