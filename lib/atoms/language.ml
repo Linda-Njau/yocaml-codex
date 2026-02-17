@@ -4,29 +4,31 @@ type t =
   }
 
 let common_language_names =
-  [ "english", "en"
-  ; "chinese", "zh"
-  ; "hindi", "hi"
-  ; "spanish", "es"
-  ; "french", "fr"
-  ; "arabic", "ar"
-  ; "portuguese", "pt"
-  ; "russian", "ru"
-  ; "german", "de"
-  ]
+  Map.String.of_list
+    [ "english", "en"
+    ; "chinese", "zh"
+    ; "hindi", "hi"
+    ; "spanish", "es"
+    ; "french", "fr"
+    ; "arabic", "ar"
+    ; "portuguese", "pt"
+    ; "russian", "ru"
+    ; "german", "de"
+    ]
 ;;
 
 let default_regions =
-  [ "en", "US"
-  ; "zh", "CN"
-  ; "hi", "IN"
-  ; "es", "ES"
-  ; "fr", "FR"
-  ; "ar", "SA"
-  ; "pt", "BR"
-  ; "ru", "RU"
-  ; "de", "DE"
-  ]
+  Map.String.of_list
+    [ "en", "US"
+    ; "zh", "CN"
+    ; "hi", "IN"
+    ; "es", "ES"
+    ; "fr", "FR"
+    ; "ar", "SA"
+    ; "pt", "BR"
+    ; "ru", "RU"
+    ; "de", "DE"
+    ]
 ;;
 
 let normalize_code s =
@@ -37,7 +39,7 @@ let normalize_code s =
     (match Iso639.Lang.of_iso639p2 s with
      | Some lang -> Some lang
      | None ->
-       (match List.assoc_opt s common_language_names with
+       (match Map.String.find_opt s common_language_names with
         | Some iso1 -> Iso639.Lang.of_iso639p1 iso1
         | None -> None))
 ;;
@@ -51,7 +53,7 @@ let default_region code region =
       | Some c -> c
       | None -> Iso639.Lang.to_string code
     in
-    List.assoc_opt code_str default_regions
+    Map.String.find_opt code_str default_regions
 ;;
 
 let make code region =
