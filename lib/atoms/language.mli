@@ -21,6 +21,22 @@ type t
         "region": Option<string>,
         "has_region": bool
       }
+    ]eof}
+
+    {3 Example with Jingoo}
+
+    {eof@html[
+      <html lang="{{ language.tag }}">
+        <body class="lang-{{ language.code }}">
+          {% if language.has_region %}
+            <span class="region">{{ language.region }}</span>
+          {% endif %}
+
+          {% if language.is_macro %}
+            <span class="macro">Macrolanguage</span>
+          {% endif %}
+        </body>
+      </html>
     ]eof} *)
 
 (** {2 Validation}
