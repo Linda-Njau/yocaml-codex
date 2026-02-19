@@ -11,12 +11,12 @@ let from ~name f x = x |> f |> Option.map (make_tag ~name)
 let from_opt ~name f x = from ~name (Option.map f) x
 let from_value ~name f = from ~name (fun x -> x |> f |> Option.some)
 
-let normalize { name; content } =
+let to_data { name; content } =
   let open Yocaml.Data in
   record [ "name", string name; "content", string content ]
 ;;
 
-let normalize_list xs =
+let to_data_list xs =
   let open Yocaml.Data in
-  xs |> List.filter_map Fun.id |> list_of normalize
+  xs |> List.filter_map Fun.id |> list_of to_data
 ;;

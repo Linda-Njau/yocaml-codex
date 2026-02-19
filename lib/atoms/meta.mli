@@ -48,8 +48,9 @@ val from_value : name:string list -> ('a -> string) -> 'a -> t
 
 (** {1 YOCaml Related} *)
 
-(** [normalize tag] normalize a meta tag into template data. *)
-val normalize : tag -> Yocaml.Data.t
+(** [to_data tag] converts a meta tag into [Yocaml.Data.t] for template rendering.
+*)
+val to_data : tag -> Yocaml.Data.t
 
-(** [normalize_list tags] normalize a list of meta tags. *)
-val normalize_list : t list -> Yocaml.Data.t
+(** [to_data_list tags] converts a list of meta tags into [Yocaml.Data.t]. *)
+val to_data_list : t list -> Yocaml.Data.t
