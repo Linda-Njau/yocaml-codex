@@ -13,6 +13,7 @@ module Link = Link
 module Email = Email
 module Language = Language
 module Meta = Meta
+module Tag = Tag
 
 (** {1 Misc} *)
 
