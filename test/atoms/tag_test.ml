@@ -51,12 +51,12 @@ let%expect_test "reject blank tag" =
 let%expect_test "build a tag set from list" =
   [ "food"; "fitness"; "food"; "fitness" ]
   |> Tag.of_list
-  |> Tag.Set.to_list
-  |> List.map Tag.to_string
-  |> dump_data (Yocaml.Data.list_of Yocaml.Data.string);
+  |> dump_data Tag.Set.to_data;
   [%expect
     {|
-    ["fitness", "food"]
+    {"kind": "set", "length": 2, "is_empty": false, "is_not_empty": true,
+    "elements":
+     [{"value": "fitness", "slug": "fitness"}, {"value": "food", "slug": "food"}]}
     |}]
 ;;
 
