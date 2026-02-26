@@ -1,4 +1,4 @@
-open Codex_opengraph
+open Open_graph
 open Codex_atoms
 open Test_util
 

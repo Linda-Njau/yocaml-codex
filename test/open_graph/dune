@@ -1,7 +1,7 @@
 (library
- (name codex_opengraph_test)
+ (name open_graph_test)
  (package yocaml-codex)
  (inline_tests)
- (libraries yocaml-codex.opengraph)
+ (libraries yocaml-codex.open-graph)
  (preprocess
   (pps ppx_expect)))

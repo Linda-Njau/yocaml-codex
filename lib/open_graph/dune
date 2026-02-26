@@ -1,0 +1,11 @@
+(library
+ (name open_graph)
+ (public_name yocaml-codex.open-graph)
+ (modules_without_implementation open_graph)
+ (libraries yocaml yocaml-codex.atoms))
+
+(include_subdirs qualified)
+
+(mdx
+ (files *.mli)
+ (libraries yocaml yocaml-codex.open-graph))
