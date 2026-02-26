@@ -5,7 +5,6 @@
 
 (** {1 Structure} *)
 
-(** Abstract Open Graph kind. *)
 type t
 
 (** {1 Constructors} *)
@@ -17,7 +16,6 @@ type t
     {eof@html[
       <meta property="og:type" content="website" />
     ]eof} *)
-
 val website : t
 
 (** Open Graph [article] kind.
@@ -33,7 +31,6 @@ val website : t
       <meta property="article:tag" content="ocaml" />
       <meta property="article:tag" content="…" />
     ]eof} *)
-
 val article
   :  ?updated_time:Yocaml.Datetime.t
   -> ?tags:Codex_atoms.Tag.Set.t
