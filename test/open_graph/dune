@@ -1,0 +1,8 @@
+(library
+ (name open_graph_test)
+ (package yocaml-codex)
+ (inline_tests)
+ (flags (:standard) -open Codex_atoms_test)
+ (libraries yocaml-codex.open-graph yocaml-codex.atoms codex_atoms_test)
+ (preprocess
+  (pps ppx_expect)))
