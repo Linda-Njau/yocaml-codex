@@ -36,20 +36,20 @@ let kind_from_data =
 let from_data =
   let open Yocaml.Data.Validation in
   (Url.from_data $ make ~kind:Image)
-  / record (fun o ->
-    let+ kind = required o "kind" kind_from_data
-    and+ url = required o "url" Url.from_data
+  / record (fun fields ->
+    let+ kind = req fields "kind" kind_from_data
+    and+ url = req fields "url" Url.from_data
     and+ mime_type =
-      field o.${"type"} (option (string & String.not_blank))
-      |? field o.${"mime_type"} (option (string & String.not_blank))
+      opt fields "type" ~alt:["mime_type"] (string & String.not_blank)
     and+ width =
-      field o.${"width"} (option (int & positive))
-      |? field o.${"w"} (option (int & positive))
+      opt fields "width" ~alt:["w"] (int & positive)
     and+ height =
-      field o.${"height"} (option (int & positive))
-      |? field o.${"h"} (option (int & positive))
-    and+ secure_url = optional o "secure_url" Url.from_data
-    and+ alt = optional o "alt" (string & String.not_blank) in
+      opt fields "height" ~alt:["h"] (int & positive)
+    and+ secure_url =
+      opt fields "secure_url" Url.from_data
+    and+ alt =
+      opt fields "alt" (string & String.not_blank)
+    in
     let dimension = Ext.Option.((fun x y -> x, y) <$> width <*> height) in
     make ~kind ?mime_type ?dimension ?secure_url ?alt url)
 ;;
