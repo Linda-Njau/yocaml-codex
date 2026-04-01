@@ -6,13 +6,13 @@
 
 (source (github yocaml/yocaml-codex))
 (license GPL-3.0-or-later)
- 
+
 (authors
   "gr-im <grimfw@gmail.com>"
   "The XHTMLBoy <xhtmlboi@gmail.com>"
   "xvw <xaviervdw@gmail.com>"
   "msp <spanwmick@gmail.com>")
- 
+
 (maintainers
   "gr-im <grimfw@gmail.com>"
   "The XHTMLBoy <xhtmlboi@gmail.com>"
@@ -29,13 +29,14 @@
    yocaml
    yocaml_syndication
 
+   iso639
    uri
    emile
 
   ;; test setup
   (ppx_expect :with-test)
   (mdx :with-test)
-   
+
   ;; dev setup
   (utop :with-dev-setup)
   (ocamlformat (and :with-dev-setup (= 0.28.1)))
