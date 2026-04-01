@@ -9,6 +9,8 @@ let make ?gender ?first_name ?last_name display_name =
   { display_name; first_name; last_name; gender }
 ;;
 
+let to_syndication inv = Yocaml_syndication.Person.make inv.display_name
+
 let to_data { display_name; first_name; last_name; gender } =
   let open Yocaml.Data in
   let names = Ext.Option.zip first_name last_name in

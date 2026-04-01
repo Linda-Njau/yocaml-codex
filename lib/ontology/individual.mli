@@ -5,7 +5,11 @@
 
 type t
 
-(** {1 Building Individuals} *)
+(** {1 Individual API} *)
+
+(** [to_syndication individual] convert [individual] into a [person]
+    in Syndication sense.*)
+val to_syndication : t -> Yocaml_syndication.Person.t
 
 (** {1 Yocaml Related} *)
 
