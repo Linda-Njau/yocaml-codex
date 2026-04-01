@@ -595,7 +595,10 @@ let%expect_test "from_data - from identifier fail because of components" =
   input |> Repository.from_data |> dump_validation Repository.to_data;
   [%expect
     {|
-    [X]	--- Oh dear, an error has occurred ---Validation error: `test`
+    [X]	--- Oh dear, an error has occurred ---
+    Validation error:
+    Entity: `test`
+
     Invalid shape:
       Expected: record
       Given: `"gh/tezos/tezos/proj"`---

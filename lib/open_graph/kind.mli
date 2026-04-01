@@ -29,10 +29,13 @@ val website : t
       <meta property="article:modified_time" content="2024-01-10T09:30:00Z" />
       <meta property="article:section" content="Technology" />
       <meta property="article:tag" content="ocaml" />
-      <meta property="article:tag" content="…" />
+      <meta property="article:tag" content="..." />
+      <meta property="article:author" content="profile-url-author-1" />
+      <meta property="article:author" content="..." />
     ]eof} *)
 val article
   :  ?updated_time:Yocaml.Datetime.t
+  -> ?authors:Codex_atoms.Url.Set.t
   -> ?tags:Codex_atoms.Tag.Set.t
   -> published_time:Yocaml.Datetime.t
   -> section:string

@@ -7,22 +7,35 @@ type t =
       ; updated_time : Yocaml.Datetime.t option
       ; section : string
       ; tags : Tag.Set.t
+      ; authors : Url.Set.t
       }
 
 let website = Website
 
-let article ?updated_time ?(tags = Tag.Set.empty) ~published_time ~section () =
-  Article { published_time; updated_time; section; tags }
+let article
+      ?updated_time
+      ?(authors = Url.Set.empty)
+      ?(tags = Tag.Set.empty)
+      ~published_time
+      ~section
+      ()
+  =
+  Article { published_time; updated_time; section; tags; authors }
 ;;
 
 let to_open_graph = function
   | Website -> [ Meta.make ~name:[ "og"; "type" ] "website" ]
-  | Article { published_time; updated_time; section; tags } ->
+  | Article { published_time; updated_time; section; tags; authors } ->
     let open Meta in
     let tags =
       tags
       |> Tag.Set.to_list
       |> List.map (from_value ~name:[ "article"; "tag" ] Tag.to_string)
+    in
+    let authors =
+      authors
+      |> Url.Set.to_list
+      |> List.map (from_value ~name:[ "article"; "author" ] Url.to_string)
     in
     [ make ~name:[ "og"; "type" ] "article"
     ; make
@@ -35,4 +48,5 @@ let to_open_graph = function
     ; make ~name:[ "article"; "section" ] section
     ]
     @ tags
+    @ authors
 ;;

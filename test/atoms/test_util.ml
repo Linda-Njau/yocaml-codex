@@ -40,7 +40,11 @@ let dump_validation to_data = function
   | Error error ->
     let open Yocaml in
     let exn =
-      Eff.Provider_error (Required.Validation_error { entity = "test"; error })
+      Eff.Provider_error
+        { error = Required.Validation_error { entity = "test"; error }
+        ; source = None
+        ; target = None
+        }
     in
     exn
     |> Format.asprintf
