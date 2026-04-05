@@ -28,7 +28,7 @@ let%expect_test "Username of a social media account" =
   accounts |> List.map Social_account.username |> dump_list Fun.id;
   [%expect
     {|
-    `xvw`;
+    [`xvw`;
     `xvw`;
     `merveilles.town/xvw`;
     `kramo`;
@@ -40,7 +40,7 @@ let%expect_test "Username of a social media account" =
     `nukidoudi`;
     `vdwxv`;
     `vdwxv`;
-    `xvw`
+    `xvw`]
     |}]
 ;;
 
@@ -48,7 +48,7 @@ let%expect_test "Main domains of a social media account" =
   accounts |> List.map Social_account.domain |> dump_list Url.to_string;
   [%expect
     {|
-    `https://github.com`;
+    [`https://github.com`;
     `https://gitlab.com`;
     `https://merveilles.town`;
     `https://codeberg.org`;
@@ -60,7 +60,7 @@ let%expect_test "Main domains of a social media account" =
     `https://facebook.com`;
     `https://threads.com`;
     `https://cara.app`;
-    `https://ring.muhokama.fun/`
+    `https://ring.muhokama.fun/`]
     |}]
 ;;
 
@@ -68,7 +68,7 @@ let%expect_test "Url of a social media account" =
   accounts |> List.map Social_account.url |> dump_list Url.to_string;
   [%expect
     {|
-    `https://github.com/xvw`;
+    [`https://github.com/xvw`;
     `https://gitlab.com/xvw`;
     `https://merveilles.town/@xvw`;
     `https://codeberg.org/kramo`;
@@ -80,7 +80,7 @@ let%expect_test "Url of a social media account" =
     `https://facebook.com/nukidoudi`;
     `https://threads.com/@vdwxv`;
     `https://cara.app/vdwxv`;
-    `https://ring.muhokama.fun/u/xvw/`
+    `https://ring.muhokama.fun/u/xvw/`]
     |}]
 ;;
 

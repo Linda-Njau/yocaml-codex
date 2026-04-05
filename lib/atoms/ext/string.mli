@@ -50,3 +50,7 @@ val remove_leading_dot : string -> string
 
 (** [may_prepend c s] is concat [c] if [s] does not start with [c]. *)
 val may_prepend : char -> string -> string
+
+(** [split_on_chars pred str] Returns a list of the given string [str]
+    split into all characters that satisfy the given predicate [p]. *)
+val split_on_chars : (char -> bool) -> string -> string list

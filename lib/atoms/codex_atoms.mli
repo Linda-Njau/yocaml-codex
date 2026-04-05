@@ -9,6 +9,7 @@ module Map = Map
 (** {1 Elements} *)
 
 module Url = Url
+module Isbn = Isbn
 module Link = Link
 module Email = Email
 module Language = Language

@@ -94,3 +94,17 @@ let may_prepend c s =
   | Some r when Char.equal r c -> s
   | _ -> from_char c ^ s
 ;;
+
+let split_on_chars pred s =
+  (* NOTE: Like in [Stdlib] but using a predicate ([char -> bool])
+     instead of a simple char. *)
+  let r = ref [] in
+  let j = ref (Stdlib.String.length s) in
+  for i = Stdlib.String.length s - 1 downto 0 do
+    if pred (Stdlib.String.unsafe_get s i)
+    then (
+      r := Stdlib.String.sub s (i + 1) (!j - i - 1) :: !r;
+      j := i)
+  done;
+  Stdlib.String.sub s 0 !j :: !r
+;;

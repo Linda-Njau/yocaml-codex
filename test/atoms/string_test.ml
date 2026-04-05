@@ -22,12 +22,12 @@ let%expect_test "char_at" =
   |> dump_opt_list Ext.String.from_char;
   [%expect
     {|
-    `Some(a)`;
+    [`Some(a)`;
     `Some(b)`;
     `Some(c)`;
     `None`;
     `None`;
-    `None`
+    `None`]
     |}]
 ;;
 
@@ -41,10 +41,10 @@ let%expect_test "from_list" =
   |> dump_list Fun.id;
   [%expect
     {|
-    ``;
+    [``;
     `1`;
     `123`;
-    `truefalsetrue`
+    `truefalsetrue`]
     |}]
 ;;
 
@@ -63,9 +63,9 @@ let%expect_test "from_filtered_list" =
   |> dump_list Fun.id;
   [%expect
     {|
-    ``;
+    [``;
     `13`;
-    `tt`
+    `tt`]
     |}]
 ;;
 
@@ -79,10 +79,10 @@ let%expect_test "from_char_list" =
   |> dump_list Fun.id;
   [%expect
     {|
-    ``;
+    [``;
     `a`;
     `aBC`;
-    `01234`
+    `01234`]
     |}]
 ;;
 
@@ -91,9 +91,9 @@ let%expect_test "to_list" =
   |> dump_list Ext.String.from_char_list;
   [%expect
     {|
-    ``;
+    [``;
     `a`;
-    `aBcDE8`
+    `aBcDE8`]
     |}]
 ;;
 
@@ -102,9 +102,9 @@ let%expect_test "to_char_list" =
   |> dump_list Ext.String.from_char_list;
   [%expect
     {|
-    ``;
+    [``;
     `a`;
-    `aBcDE8`
+    `aBcDE8`]
     |}]
 ;;
 
@@ -118,10 +118,10 @@ let%expect_test "concat_with" =
   |> dump_list Fun.id;
   [%expect
     {|
-    ``;
+    [``;
     `1, 2, 3`;
     `foohehebar`;
-    `foo`
+    `foo`]
     |}]
 ;;
 
@@ -134,9 +134,9 @@ let%expect_test "ltrim_when" =
   [ "123344foo"; "1234345"; "1234foo00098" ] |> dump_list ltrim;
   [%expect
     {|
-    `foo`;
+    [`foo`;
     ``;
-    `foo00098`
+    `foo00098`]
     |}]
 ;;
 
@@ -149,9 +149,9 @@ let%expect_test "rtrim_when" =
   [ "foo123344"; "1234345"; "1234foo00098" ] |> dump_list ltrim;
   [%expect
     {|
-    `foo`;
+    [`foo`;
     ``;
-    `1234foo`
+    `1234foo`]
     |}]
 ;;
 
@@ -164,9 +164,9 @@ let%expect_test "trim_when" =
   [ "foo123344"; "1234345"; "1234foo00098" ] |> dump_list ltrim;
   [%expect
     {|
-    `foo`;
+    [`foo`;
     ``;
-    `foo`
+    `foo`]
     |}]
 ;;
 
@@ -179,9 +179,9 @@ let%expect_test "remove_leading_char_when" =
   [ "1foo123344"; "1234345"; "1234foo00098" ] |> dump_list ltrim;
   [%expect
     {|
-    `foo123344`;
+    [`foo123344`;
     `234345`;
-    `234foo00098`
+    `234foo00098`]
     |}]
 ;;
 
@@ -190,9 +190,9 @@ let%expect_test "remove_leading_arobase" =
   |> dump_list Ext.String.remove_leading_arobase;
   [%expect
     {|
-    `1foo123344`;
+    [`1foo123344`;
     `1234345`;
-    `@1234foo00098`
+    `@1234foo00098`]
     |}]
 ;;
 
@@ -201,9 +201,9 @@ let%expect_test "remove_leading_hash" =
   |> dump_list Ext.String.remove_leading_hash;
   [%expect
     {|
-    `1foo123344`;
+    [`1foo123344`;
     `1234345`;
-    `#1234foo00098`
+    `#1234foo00098`]
     |}]
 ;;
 
@@ -212,9 +212,9 @@ let%expect_test "remove_leading_dot" =
   |> dump_list Ext.String.remove_leading_dot;
   [%expect
     {|
-    `1foo123344`;
+    [`1foo123344`;
     `1234345.`;
-    `.1234foo00098.`
+    `.1234foo00098.`]
     |}]
 ;;
 
@@ -223,8 +223,49 @@ let%expect_test "may_prepend" =
   |> dump_list (Ext.String.may_prepend '@');
   [%expect
     {|
-    `@1foo123344`;
+    [`@1foo123344`;
     `@1234345.`;
-    `@1234foo00098.`
+    `@1234foo00098.`]
+    |}]
+;;
+
+let%expect_test "split_on_char" =
+  "foo-bar-baz"
+  |> Ext.String.split_on_chars (function
+    | '-' -> true
+    | _ -> false)
+  |> dump_list Fun.id;
+  [%expect
+    {|
+    [`foo`;
+    `bar`;
+    `baz`]
+    |}]
+;;
+
+let%expect_test "split_on_char" =
+  ""
+  |> Ext.String.split_on_chars (function
+    | '-' -> true
+    | _ -> false)
+  |> dump_list Fun.id;
+  [%expect {| [``] |}]
+;;
+
+let%expect_test "split_on_char" =
+  "foo-bar-baz_foo bar\tbaz\nbar"
+  |> Ext.String.split_on_chars (function
+    | '-' | '_' | ' ' | '\t' | '\n' -> true
+    | _ -> false)
+  |> dump_list Fun.id;
+  [%expect
+    {|
+    [`foo`;
+    `bar`;
+    `baz`;
+    `foo`;
+    `bar`;
+    `baz`;
+    `bar`]
     |}]
 ;;
