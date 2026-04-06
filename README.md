@@ -31,6 +31,9 @@ _sub-libraries_ :
 
 - `yocaml-codex.atoms`, `Codex_atoms`, which describes the set of
   **primitive types** one might want to use (such as `url`)
+  
+- `yocaml-codex.open_graph`, `Codex_open_graph`, which describes
+  [open-graph](https://ogp.me/) lexicons
 
 - `yocaml-codex.ontology`, `Codex_ontology`, which describes complete
   data models (such as `repository`)
