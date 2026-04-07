@@ -73,6 +73,12 @@ let from_data =
   string & from_string
 ;;
 
+let url isbn =
+  "isbnsearch.org"
+  |> Url.https
+  |> Url.resolve (Yocaml.Path.abs [ "isbn"; value isbn ])
+;;
+
 let to_data ({ value; kind } as isbn) =
   let open Yocaml.Data in
   record
@@ -82,7 +88,8 @@ let to_data ({ value; kind } as isbn) =
           (match kind with
            | T10 -> 10
            | T13 -> 13) )
-    ; "repr", string (to_string isbn)
+    ; "repr", isbn |> to_string |> string
+    ; "target", isbn |> url |> Url.to_data
     ]
 ;;
 
