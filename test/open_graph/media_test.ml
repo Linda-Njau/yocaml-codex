@@ -1,37 +1,27 @@
 open Test_util
 open Codex_atoms
-open Codex_ontology
+open Codex_open_graph
 
 let image_cover =
-  Cover.make
-    ~kind:Image
-    ~alt:"An example image"
-    (Url.https "example.com/image.png")
+  Media.image ~alt:"An example image" (Url.https "example.com/image.png")
 ;;
 
 let image_cover_with_dimensions =
-  Cover.make
-    ~kind:Image
-    ~dimension:(1200, 630)
-    (Url.https "example.com/cover.png")
+  Media.image ~dimension:(1200, 630) (Url.https "example.com/cover.png")
 ;;
 
 let video_cover =
-  Cover.make
-    ~kind:Video
-    ~mime_type:"video/mp4"
-    (Url.https "example.com/video.mp4")
+  Media.video ~mime_type:"video/mp4" (Url.https "example.com/video.mp4")
 ;;
 
 let secure_image_cover =
-  Cover.make
-    ~kind:Image
+  Media.image
     ~secure_url:(Url.https "cdn.example.com/image.png")
     (Url.http "example.com/image.png")
 ;;
 
 let%expect_test "image to_open_graph" =
-  image_cover |> Cover.to_open_graph |> dump_data Meta.to_data_list;
+  image_cover |> Media.to_open_graph |> dump_data Meta.to_data_list;
   [%expect
     {|
     [{"name": "og:image", "content": "https://example.com/image.png"},
@@ -41,7 +31,7 @@ let%expect_test "image to_open_graph" =
 
 let%expect_test "image with dimensions to_open_graph" =
   image_cover_with_dimensions
-  |> Cover.to_open_graph
+  |> Media.to_open_graph
   |> dump_data Meta.to_data_list;
   [%expect
     {|
@@ -52,7 +42,7 @@ let%expect_test "image with dimensions to_open_graph" =
 ;;
 
 let%expect_test "video to_open_graph" =
-  video_cover |> Cover.to_open_graph |> dump_data Meta.to_data_list;
+  video_cover |> Media.to_open_graph |> dump_data Meta.to_data_list;
   [%expect
     {|
     [{"name": "og:video", "content": "https://example.com/video.mp4"},
@@ -61,7 +51,7 @@ let%expect_test "video to_open_graph" =
 ;;
 
 let%expect_test "secure image to_open_graph" =
-  secure_image_cover |> Cover.to_open_graph |> dump_data Meta.to_data_list;
+  secure_image_cover |> Media.to_open_graph |> dump_data Meta.to_data_list;
   [%expect
     {|
     [{"name": "og:image", "content": "http://example.com/image.png"},
@@ -74,8 +64,8 @@ let%expect_test "from_data image" =
   let open Yocaml.Data in
   record
     [ "kind", string "image"; "url", string "https://example.com/image.png" ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -93,8 +83,8 @@ let%expect_test "from_data image" =
 let%expect_test "from_data url" =
   let open Yocaml.Data in
   string "https://example.com/image.png"
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -115,8 +105,8 @@ let%expect_test "from_data kind normalization" =
     [ "kind", string "  VIDEO  "
     ; "url", string "https://example.com/video.mp4"
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "video", "url":
@@ -138,8 +128,8 @@ let%expect_test "from_data mime_type" =
     ; "url", string "https://example.com/video.mp4"
     ; "mime_type", string "video/mp4"
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "video", "url":
@@ -161,8 +151,8 @@ let%expect_test "from_data mime_type alias" =
     ; "url", string "https://example.com/video.mp4"
     ; "type", string "video/mp4"
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "video", "url":
@@ -185,8 +175,8 @@ let%expect_test "from_data dimensions" =
     ; "width", int 1200
     ; "height", int 630
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -209,8 +199,8 @@ let%expect_test "from_data dimensions alias" =
     ; "w", int 1200
     ; "h", int 630
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -232,8 +222,8 @@ let%expect_test "from_data width only" =
     ; "url", string "https://example.com/cover.png"
     ; "width", int 1200
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -255,8 +245,8 @@ let%expect_test "from_data secure_url" =
     ; "url", string "http://example.com/image.png"
     ; "secure_url", string "https://cdn.example.com/image.png"
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -284,8 +274,8 @@ let%expect_test "from_data alt" =
     ; "url", string "https://example.com/image.png"
     ; "alt", string "Example image"
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [V]	{"kind": "image", "url":
@@ -307,8 +297,8 @@ let%expect_test "from_data alt rejects blank" =
     ; "url", string "https://example.com/image.png"
     ; "alt", string ""
     ]
-  |> Cover.from_data
-  |> dump_validation Cover.to_data;
+  |> Media.from_data
+  |> dump_validation Media.to_data;
   [%expect
     {|
     [X]	--- Oh dear, an error has occurred ---

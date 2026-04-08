@@ -1,25 +1,31 @@
-(** Describes Open Graph cover elements. *)
+(** Describes a Media elements (mostly for Open Graph). *)
 
 (** {1 Structure} *)
 
 (** The kind of cover element. *)
-type kind =
-  | Image
-  | Video
+type kind
 
 (** A cover element. *)
 type t
 
 (** {2 Construction} *)
 
-(** [make ~kind url] constructs a cover element. *)
-val make
-  :  kind:kind
-  -> ?secure_url:Url.t
+(** [image ~kind url] constructs an image. *)
+val image
+  :  ?secure_url:Codex_atoms.Url.t
   -> ?mime_type:string
   -> ?dimension:int * int
   -> ?alt:string
-  -> Url.t
+  -> Codex_atoms.Url.t
+  -> t
+
+(** [video ~kind url] constructs an image. *)
+val video
+  :  ?secure_url:Codex_atoms.Url.t
+  -> ?mime_type:string
+  -> ?dimension:int * int
+  -> ?alt:string
+  -> Codex_atoms.Url.t
   -> t
 
 (** {1 Yocaml Related} *)
@@ -35,4 +41,4 @@ module Map : Stdlib.Map.S with type key = t
 (** {1 Open Graph Related} *)
 
 (** [to_open_graph cover] converts a cover element into Open Graph meta tags. *)
-val to_open_graph : t -> Meta.t list
+val to_open_graph : t -> Codex_atoms.Meta.t list

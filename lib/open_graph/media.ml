@@ -17,6 +17,8 @@ let make ~kind ?secure_url ?mime_type ?dimension ?alt url =
   { kind; url; secure_url; mime_type; dimension; alt }
 ;;
 
+let image = make ~kind:Image
+let video = make ~kind:Video
 let compare a b = Url.compare a.url b.url
 
 let kind_to_string = function
@@ -40,16 +42,11 @@ let from_data =
     let+ kind = req fields "kind" kind_from_data
     and+ url = req fields "url" Url.from_data
     and+ mime_type =
-      opt fields "type" ~alt:["mime_type"] (string & String.not_blank)
-    and+ width =
-      opt fields "width" ~alt:["w"] (int & positive)
-    and+ height =
-      opt fields "height" ~alt:["h"] (int & positive)
-    and+ secure_url =
-      opt fields "secure_url" Url.from_data
-    and+ alt =
-      opt fields "alt" (string & String.not_blank)
-    in
+      opt fields "type" ~alt:[ "mime_type" ] (string & String.not_blank)
+    and+ width = opt fields "width" ~alt:[ "w" ] (int & positive)
+    and+ height = opt fields "height" ~alt:[ "h" ] (int & positive)
+    and+ secure_url = opt fields "secure_url" Url.from_data
+    and+ alt = opt fields "alt" (string & String.not_blank) in
     let dimension = Ext.Option.((fun x y -> x, y) <$> width <*> height) in
     make ~kind ?mime_type ?dimension ?secure_url ?alt url)
 ;;
