@@ -9,7 +9,7 @@ type t =
   ; cover : Media.t option
   }
 
-let make ?locale ?cover kind title site_name url =
+let make ?locale ?cover ~kind ~title ~site_name ~url () =
   { locale; cover; kind; title; site_name; url }
 ;;
 

@@ -2,6 +2,6 @@ version = 0.28.1
 profile = janestreet
 ocaml-version = 5.3
 margin = 80
-parse-docstrings
+parse-docstrings = true
 break-separators = before
 break-infix = fit-or-vertical
