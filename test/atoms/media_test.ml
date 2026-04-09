@@ -1,6 +1,5 @@
 open Test_util
 open Codex_atoms
-open Codex_open_graph
 
 let image_cover =
   Media.image ~alt:"An example image" (Url.https "example.com/image.png")

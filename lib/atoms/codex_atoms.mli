@@ -15,6 +15,7 @@ module Email = Email
 module Language = Language
 module Meta = Meta
 module Tag = Tag
+module Media = Media
 
 (** {1 Misc} *)
 

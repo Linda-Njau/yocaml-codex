@@ -1,5 +1,3 @@
-open Codex_atoms
-
 type kind =
   | Image
   | Video

@@ -93,12 +93,14 @@ let from_data =
   from_record / (string & from_string)
 ;;
 
-let to_string { code; region } =
-  let code =
-    match Iso639.Lang.to_iso639p1 code with
-    | Some c -> c
-    | None -> Iso639.Lang.to_string code
-  in
+let to_code { code; _ } =
+  match Iso639.Lang.to_iso639p1 code with
+  | Some c -> c
+  | None -> Iso639.Lang.to_string code
+;;
+
+let to_string ({ region; _ } as lang) =
+  let code = to_code lang in
   match region with
   | None -> code
   | Some region -> code ^ "-" ^ region

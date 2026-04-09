@@ -51,6 +51,10 @@ type t
     (for example ["en"] or ["en-KE"]). *)
 val to_string : t -> string
 
+(** [to_code lang] renders the language as a short-string (for example
+    ["en"]). *)
+val to_code : t -> string
+
 (** [compare a b] compare two languages. *)
 val compare : t -> t -> int
 

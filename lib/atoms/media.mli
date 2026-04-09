@@ -1,4 +1,4 @@
-(** Describes a Media elements (mostly for Open Graph). *)
+(** Describes a Media elements like a cover (mostly for Open Graph). *)
 
 (** {1 Structure} *)
 
@@ -12,20 +12,20 @@ type t
 
 (** [image ~kind url] constructs an image. *)
 val image
-  :  ?secure_url:Codex_atoms.Url.t
+  :  ?secure_url:Url.t
   -> ?mime_type:string
   -> ?dimension:int * int
   -> ?alt:string
-  -> Codex_atoms.Url.t
+  -> Url.t
   -> t
 
 (** [video ~kind url] constructs an image. *)
 val video
-  :  ?secure_url:Codex_atoms.Url.t
+  :  ?secure_url:Url.t
   -> ?mime_type:string
   -> ?dimension:int * int
   -> ?alt:string
-  -> Codex_atoms.Url.t
+  -> Url.t
   -> t
 
 (** {1 Yocaml Related} *)
@@ -41,4 +41,4 @@ module Map : Stdlib.Map.S with type key = t
 (** {1 Open Graph Related} *)
 
 (** [to_open_graph cover] converts a cover element into Open Graph meta tags. *)
-val to_open_graph : t -> Codex_atoms.Meta.t list
+val to_open_graph : t -> Meta.t list
