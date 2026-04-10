@@ -37,6 +37,30 @@ let%expect_test "validate a language - from canonical name (french)" =
     |}]
 ;;
 
+let%expect_test "validate a language - from canonical name (english)" =
+  Yocaml.Data.string "english"
+  |> Language.from_data
+  |> dump_validation Language.to_data;
+  [%expect
+    {|
+    [V]	{"tag": "en-US", "code": "en", "iso639p1": "en", "iso639p2": "eng",
+        "scope": "individual", "is_macro": false, "region": "US", "has_region":
+         true}
+    |}]
+;;
+
+let%expect_test "validate a language UK english" =
+  Yocaml.Data.string "en-UK"
+  |> Language.from_data
+  |> dump_validation Language.to_data;
+  [%expect
+    {|
+    [V]	{"tag": "en-UK", "code": "en", "iso639p1": "en", "iso639p2": "eng",
+        "scope": "individual", "is_macro": false, "region": "UK", "has_region":
+         true}
+    |}]
+;;
+
 let%expect_test "validate a language - from record (code only)" =
   Yocaml.Data.(record [ "code", string "de" ])
   |> Language.from_data
@@ -91,5 +115,32 @@ let%expect_test "reject invalid language format" =
       Message: Invalid language format
       Given: `zh-Hans-CN`---
     The backtrace is not available because the function is called (according to the [in_exception_handler] parameter) outside an exception handler. This makes the trace unspecified.
+    |}]
+;;
+
+let%expect_test "dump french" =
+  Language.fr |> dump_data Language.to_data;
+  [%expect
+    {|
+    {"tag": "fr-FR", "code": "fr", "iso639p1": "fr", "iso639p2": "fra", "scope":
+     "individual", "is_macro": false, "region": "FR", "has_region": true}
+    |}]
+;;
+
+let%expect_test "dump en-US" =
+  Language.en_us |> dump_data Language.to_data;
+  [%expect
+    {|
+    {"tag": "en-US", "code": "en", "iso639p1": "en", "iso639p2": "eng", "scope":
+     "individual", "is_macro": false, "region": "US", "has_region": true}
+    |}]
+;;
+
+let%expect_test "dump en-UK" =
+  Language.en_uk |> dump_data Language.to_data;
+  [%expect
+    {|
+    {"tag": "en-UK", "code": "en", "iso639p1": "en", "iso639p2": "eng", "scope":
+     "individual", "is_macro": false, "region": "UK", "has_region": true}
     |}]
 ;;

@@ -45,6 +45,17 @@ type t
     or canonical names such as ["english"]), or from records containing
     language and optional region fields. *)
 
+(** {1 Predefined languages} *)
+
+(** English (from england) language. *)
+val en_uk : t
+
+(** English (from US) language. *)
+val en_us : t
+
+(** French language (hey it is in OCaml). *)
+val fr : t
+
 (** {1 Manipulating Languages} *)
 
 (** [to_string lang] renders the language as a string

@@ -88,6 +88,18 @@ let from_record =
     make code region)
 ;;
 
+let guard s =
+  match from_string s with
+  | Ok x -> x
+  | Error _ ->
+    (* NOTE: Should never happen *)
+    failwith ("lang error: " ^ s)
+;;
+
+let fr = guard "french"
+let en_us = guard "english"
+let en_uk = guard "en-UK"
+
 let from_data =
   let open Yocaml.Data.Validation in
   from_record / (string & from_string)
