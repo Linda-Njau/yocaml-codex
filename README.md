@@ -37,6 +37,10 @@ _sub-libraries_ :
 
 - `yocaml-codex.ontology`, `Codex_ontology`, which describes complete
   data models (such as `repository`)
+  
+- `yocaml-codex.html`, `Codex_html`, which describes metadata attached
+  to an HTML document. (_Usually, every page should be lifted into a
+  document_).
 
 ## Local development environment
 
