@@ -29,7 +29,8 @@ let%expect_test "create a document" =
       ()
   in
   doc |> Document.to_open_graph |> dump_data Meta.to_data_list;
-  [%expect {|
+  [%expect
+    {|
     [{"name": "og:title", "content": "My page"},
     {"name": "og:site_name", "content": "xvw"},
     {"name": "og:url", "content": "https://xvw.lol"},

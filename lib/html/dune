@@ -1,4 +1,4 @@
 (library
  (name codex_html)
  (public_name yocaml-codex.html)
- (libraries yocaml yocaml-codex.atoms))
+ (libraries yocaml yocaml-codex.atoms yocaml-codex.open-graph))
